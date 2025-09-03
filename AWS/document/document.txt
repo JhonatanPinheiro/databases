@@ -4,6 +4,7 @@ Seções do módulo:
 •Amazon DynamoDB•Amazon Redshift
 •Amazon Aurora
 
+https://docs.aws.amazon.com/
 
 - Amazon RDS (Relational Database Service) é um serviço de banco de dados gerenciado pela AWS. Ele simplifica tarefas como configuração, operação e escalabilidade de bancos de dados na nuvem. A principal diferença entre um serviço gerenciado, como o RDS, e um não gerenciado é que, no gerenciado, a AWS cuida da infraestrutura, backups, atualizações e alta disponibilidade, enquanto no modelo não gerenciado, todas essas responsabilidades ficam por conta do usuário. O Amazon RDS também permite configurar ambientes altamente disponíveis com réplicas em múltiplas zonas de disponibilidade (Multi-AZ), garantindo resiliência e continuidade dos serviços.
 
