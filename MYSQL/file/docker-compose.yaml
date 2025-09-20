@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123      # Senha do root
+      MYSQL_DATABASE: meubanco         # Banco de dados inicial
+      MYSQL_USER: admin                # Usuário adicional
+      MYSQL_PASSWORD: admin123         # Senha do usuário adicional
+    ports:
+      - "3306:3306"                    # Porta padrão do MySQL
+    volumes:
+      - ./mysql_data:/var/lib/mysql    # Persistência dos dados
+
+volumes:
+  mysql_data:

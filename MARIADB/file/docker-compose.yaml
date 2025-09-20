@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123        # senha do root
+      MYSQL_DATABASE: minha_base          # banco inicial
+      MYSQL_USER: usuario                 # usuário extra
+      MYSQL_PASSWORD: senha_usuario       # senha do usuário extra
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:
