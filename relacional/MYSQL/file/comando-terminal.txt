@@ -1,0 +1,55 @@
+# Considerando que seu container se chama db_container_mysql e banco/usuário configurados no docker-compose:
+# Acessar o banco diretamente dentro do container:
+docker exec -it db_container_mysql mysql -u admin -padmin123 meubanco
+
+# Entrar no MySQL com usuário apenas e depois escolher o banco:
+docker exec -it db_container_mysql mysql -u admin -padmin123
+
+# Depois dentro do prompt do MySQL:
+USE meubanco;
+
+# Acessar de fora do container (se o cliente mysql estiver instalado no host):
+mysql -h localhost -P 3306 -u admin -padmin123 meubanco
+
+# Se quiser rodar um comando SQL já na hora de acessar (sem entrar interativamente), pode usar a opção -e. Por exemplo:
+docker exec -it db_container_mysql mysql -u admin -padmin123 -e "SELECT * FROM tabela_exemplo;" meubanco
+
+# Para ver os containers ativos e confirmar o nome:
+docker ps
+
+# Para sair do MySQL, use:
+exit
+
+# Se você usa docker-compose (ao invés de nome do container diretamente), pode buscar o ID do container com:
+docker-compose ps -q mysql
+
+# Para uma limpeza mais abrangente, removendo containers parados, redes não utilizadas, volumes e imagens não referenciadas:
+docker system prune
+
+# Este comando envia um sinal de término (SIGTERM) para todos os containers, permitindo que eles sejam encerrados de forma controlada:
+docker stop $(docker ps -q)
+
+|------------ 
+⚠️ Atenção
+Cuidado ao usar docker kill, pois ele encerra os containers imediatamente, sem permitir que eles realizem um desligamento adequado.
+Evite usar docker rm em containers em execução, pois isso pode causar perda de dados ou corrupção, a menos que você tenha certeza de que os containers podem ser removidos sem consequências.
+------------|
+
+# Para remover todas as imagens que correspondem a um padrão específico no nome, você pode usar o seguinte comando:
+# Por exemplo, para remover todas as imagens que contêm "mysql" no nome:
+docker rmi $(docker images --filter=reference='*mysql*' -q)
+
+# Se você conhece o nome exato da imagem (incluindo a tag), pode removê-la diretamente:
+docker rmi db_container_mysql:8.1
+
+# Se a imagem estiver sendo usada por um container, você precisará removê-lo primeiro ou usar a opção -f para forçar a remoção:
+docker rmi -f db_container_mysql:8.1
+
+# Se você deseja remover todas as imagens Docker do seu sistema:
+docker rmi $(docker images -q)
+
+# Para remover todos os containers, incluindo os que estão parados, utilize:
+docker rm $(docker ps -a -q)
+
+# Se você deseja forçar o encerramento imediato de todos os containers, sem aguardar o processo de término, use:
+docker kill $(docker ps -q)

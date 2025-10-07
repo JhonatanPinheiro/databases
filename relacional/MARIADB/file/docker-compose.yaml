@@ -3,7 +3,7 @@ version: '3.9'
 services:
   mariadb:
     image: mariadb:11
-    container_name: mariadb
+    container_name: db_container_mariadb
     restart: always
     ports:
       - "3306:3306"

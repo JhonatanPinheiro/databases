@@ -2,7 +2,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15
-    container_name: postgres
+    container_name: db_container_postgres
     restart: always
     environment:
       POSTGRES_USER: admin
