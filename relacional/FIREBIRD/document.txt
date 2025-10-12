@@ -1,0 +1,26 @@
+Pega o arquivo: firebird.msg e coloque no caminho: C:\Windows\System32
+
+
+1-Copiar o Backup para a pasta firebird_restore
+Caminho: C:\containers_dockers_instalados\firebird\firebird_restore
+
+
+2 - Acessar o Contêiner:
+Entre no contêiner para executar a restauração:  
+docker exec -it db_container_firebird bash
+
+
+3- Restaurar o Banco de Dados:
+Dentro do contêiner, execute o comando de restauração com o -REP para substituir o banco de dados existente:
+/opt/firebird/bin/gbak -REP -v /firebird/restore/bkp_telhas.gbk /var/lib/firebird/data/meubanco.fdb -user SYSDBA -password masterkey -fix_fss_metadata WIN1252
+
+
+4 - Verificar a Integridade do Banco de Dados
+Execute o comando abaixo para verificar a integridade do banco de dados restaurado:
+/opt/firebird/bin/gfix -v -full /var/lib/firebird/data/meubanco.fdb -user SYSDBA -password masterkey
+
+
+5 - Reindexar o Banco de Dados
+Após a restauração, é recomendável reindexar o banco de dados para garantir que todos os índices estejam atualizados:
+/opt/firebird/bin/gfix -reindex /var/lib/firebird/data/meubanco.fdb -user SYSDBA -password masterkey
+
