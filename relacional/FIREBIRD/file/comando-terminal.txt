@@ -24,13 +24,13 @@ Execute o comando abaixo para verificar a integridade do banco de dados restaura
 Após a restauração, é recomendável reindexar o banco de dados para garantir que todos os índices estejam atualizados:
 /opt/firebird/bin/gfix -reindex /var/lib/firebird/data/meubanco.fdb -user SYSDBA -password masterkey
 
+# Entrar no container do db_container_firebird
+docker exec -it db_container_firebird bash
 
 
  - Verificar a Disponibilidade do isql: 
  docker exec -it db_container_firebird bash
  which isql
-
-
 
 
 - Executando o SQL pelo terminal (Docker)
@@ -51,7 +51,13 @@ Se você tiver um arquivo SQL, como meuarquivo.sql, e quiser executá-lo diretam
 
 
 
-
 ✅ Como garantir que você ainda consiga subir o container daqui a décadas . Salvar a imagem localmente
 Exportar para um arquivo .tar usando:
 docker save -o minha_firebird_custom_5.0.3.tar minha_firebird_custom:5.0.3
+
+
+# Entrar no container do db_container_firebird
+docker exec -it db_container_firebird bash
+
+#Depois acessar o banco de dados pelo terminal
+isql /var/lib/firebird/data/meubanco.fdb -u SYSDBA -p masterkey
