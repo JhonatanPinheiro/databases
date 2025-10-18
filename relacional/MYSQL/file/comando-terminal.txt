@@ -1,4 +1,21 @@
 # Considerando que seu container se chama db_container_mysql e banco/usuário configurados no docker-compose:
+
+#Entrar no container do db_container_mysql
+docker exec -it db_container_mysql bash
+
+#Caminhos dos banco de dados 
+/var/lib/mysql
+
+#Acessando o banco como root: 
+docker exec -it db_container_mysql mysql -u root -proot123
+
+#Criar um dump (exportar o banco meubanco)
+docker exec -it db_container_mysql mysqldump -u root -p meubanco > dump.sql
+
+# Jogar os dados (DUMP) para a base de dados
+docker exec -it db_container_mysql mysqldump -u root -p NOME_DO_BANCO < NOME_DO_DUMP.sql
+
+
 # Acessar o banco diretamente dentro do container:
 docker exec -it db_container_mysql mysql -u admin -padmin123 meubanco
 
