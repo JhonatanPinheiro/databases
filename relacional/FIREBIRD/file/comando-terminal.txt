@@ -61,3 +61,6 @@ docker exec -it db_container_firebird bash
 
 #Depois acessar o banco de dados pelo terminal
 isql /var/lib/firebird/data/meubanco.fdb -u SYSDBA -p masterkey
+
+#Limpar os container antigos
+docker system prune -f
