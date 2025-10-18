@@ -43,6 +43,14 @@ Entrando em um banco de dados (̀̀'ESTACIONAMENTO') específico pelo docker ter
 
 
 
+#Tirando banco de dados no modo shutdown
+#Use o gfix -online para colocar o banco online antes de tentar qualquer operação:
+
+docker exec -it db_container_firebird /opt/firebird/bin/gfix -online /var/lib/firebird/data/meubanco.fdb -user SYSDBA -password masterkey
+
+#Após rodar isso, você poderá usar gbak, isql ou conectar pelo DBeaver normalmente.
+
+
 
 
 Executar Comandos SQL em Arquivo

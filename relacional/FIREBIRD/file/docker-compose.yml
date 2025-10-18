@@ -10,4 +10,4 @@ services:
       - "3050:3050"
     volumes:
       - ./firebird_data:/var/lib/firebird/data
-
+      - ./firebird_restore:/firebird/restore
