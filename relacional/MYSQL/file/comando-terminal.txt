@@ -1,5 +1,15 @@
 # Considerando que seu container se chama db_container_mysql e banco/usuário configurados no docker-compose:
 
+::::::::::::::::::::::::::::::::::
+Acesso limitado
+usuario: admin 
+senha: admin123
+
+Acesso total
+usuario: root
+senha: root123
+::::::::::::::::::::::::::::::::::
+
 #Entrar no container do db_container_mysql
 docker exec -it db_container_mysql bash
 
