@@ -61,3 +61,64 @@ docker rm $(docker ps -a -q)
 #Se você deseja forçar o encerramento imediato de todos os containers, sem aguardar o processo de término, use:
 docker kill $(docker ps -q)
 
+
+
+## JOGANDO UM ARQUIVO DE BACKUP VIA TERMINAL USANDO O DOCKER PARA A BASE (LOCALHOST)
+	(1) - Coloque o arquivo de backup na pasta do Docker onde fica o arquivo docker-compose
+ 		Segue caminho: C:\containers_dockers_instalados\postgree
+
+
+	(2) Depois execute o comando:
+ 		docker exec -it db_container_postgres bash
+
+	(3) Crie o banco de dados com o nome desejado
+		psql -U admin -c "CREATE DATABASE NOME_DO_BANCO_DESEJADO;"
+
+	(4) - Saia do container
+ 		exit
+
+	(5) - Colocando o arquivo do banco dentro do container
+		docker cp NOME_DO_ARQUIVO_BANCO_DE_DADOS db_container_postgres:/tmp/
+
+	(6) - Volte para o container
+		docker exec -it db_container_postgres bash
+
+	(7) - Confirma se o arquivo do banco foi jogado para a /tmp/
+		ls -lh /tmp/
+
+	(6) Rode o comando para restaurar
+		pg_restore --no-owner --no-privileges -U admin -d NOME_BANCO_CRIADO -v /tmp/NOME_DO_ARQUIVO_DO_BANCO_PARA_RESTAURAR.backup
+
+
+	(8) Verificação de tabelas - Confirme se o banco foi restaurado corretamente:
+		psql -U admin -d NOME_DO_BANCO_CRIADO -c "\dt"
+
+
+
+## PARA DELETE ALGUM BANCO DE DADOS QUE FOI CRIADO, USANDO DOCKER PELO TERMINAL
+	(1 - ETAPA)
+		docker exec -it db_container_postgres bash
+	
+	(2 - ETAPA)
+		psql -U admin -d postgres
+	
+	(5 - ETAPA)
+		\l
+
+	(6 - ETAPA (A) )
+		DROP DATABASE NOME_DO_BANCO_SER_DELETADO;
+
+	OU
+	
+	(6 - ETAPA (B) )
+		exit
+
+	Fora do container:
+		docker exec -it db_container_postgres psql -U admin -d postgres -c "DROP DATABASE nome_do_banco;"
+
+
+
+
+
+
+
