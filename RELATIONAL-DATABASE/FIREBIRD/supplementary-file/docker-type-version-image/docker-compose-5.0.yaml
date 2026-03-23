@@ -1,0 +1,13 @@
+services:
+  firebird:
+    image: firebirdsql/firebird:5.0.1
+    container_name: db_container_firebird
+    restart: always
+    environment:
+      FIREBIRD_USER: SYSDBA
+      FIREBIRD_PASSWORD: masterkey
+    ports:
+      - "3050:3050"
+    volumes:
+      - ./firebird_data:/var/lib/firebird/data
+      - ./firebird_restore:/firebird/restore
